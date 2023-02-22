@@ -1,14 +1,17 @@
-package com.spring.spring_boot.services;
+package ru.kata.spring.boot_security.demo.services;
 
 
-import com.spring.spring_boot.entity.User;
+import org.springframework.transaction.annotation.Transactional;
+import ru.kata.spring.boot_security.demo.entity.User;
 
 import java.util.List;
 
 public interface UserService {
-    void saveUser(User user);
+    void createUser(User user);
 
-    User getUser(Long id);
+    User getUserById(Long id);
+
+    User getUserByEmail(String email);
 
     List<User> getAllUser();
 
@@ -16,4 +19,5 @@ public interface UserService {
     void deleteUser(Long id);
 
 
+    void updateUser(User user);
 }

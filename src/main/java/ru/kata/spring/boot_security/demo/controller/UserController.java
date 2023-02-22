@@ -1,58 +1,31 @@
-package com.spring.spring_boot.controller;
+package ru.kata.spring.boot_security.demo.controller;
 
-import com.spring.spring_boot.entity.User;
-import com.spring.spring_boot.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import ru.kata.spring.boot_security.demo.entity.User;
+import ru.kata.spring.boot_security.demo.services.UserService;
+import ru.kata.spring.boot_security.demo.services.UserServiceIml;
+
+import java.security.Principal;
 
 
 @Controller
 public class UserController {
+
     private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
-        this.userService = userService;
+        this.userService = (UserServiceIml) userService;
     }
 
-    @GetMapping(value = "/")
-    public String getAllUsers(ModelMap modelMap) {
-        modelMap.addAttribute("users", userService.getAllUser());
-
-        return "users";
-    }
-
-
-    @GetMapping("/newUser")
-    public String getCreationUserForm(ModelMap modelMap) {
-        User user = new User();
+    @GetMapping(value = "/user")
+    public String getAllUsers(ModelMap modelMap, Principal principal) {
+        User user = userService.getUserByEmail(principal.getName());
         modelMap.addAttribute("user", user);
-        return "new";
+        return "user";
     }
 
-    @PostMapping("/saveUser")
-    public String saveNewUser(@ModelAttribute("user") User user) {
-        userService.saveUser(user);
-        return "redirect:/";
-    }
-
-    @GetMapping("/user/{id}")
-    public String getUpdateUserForm(ModelMap modelMap, @PathVariable("id") long id) {
-        modelMap.addAttribute("user", userService.getUser(id));
-        return "update";
-    }
-    @PatchMapping("/{id}")
-    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") long id){
-        user.setId(id);
-        userService.saveUser(user);
-    return "redirect:/";
-    }
-
-    @DeleteMapping("/{id}")
-    public String deleteUserById(@PathVariable long id){
-        userService.deleteUser(id);
-        return "redirect:/";
-    }
 }

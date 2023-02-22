@@ -9,16 +9,20 @@
     <tr>
         <th>Имя</th>
         <th>Фамилия</th>
-        <th>Возраст</th>
+        <th>Email</th>
+        <th>Роль</th>
         <th>Действия</th>
     </tr>
     <tr th:each="user : ${users}">
         <td th:text="${user.name}"></td>
         <td th:text="${user.lastName}"></td>
-        <td th:text="${user.age}"></td>
+        <td th:text="${user.email}"></td>
         <td>
-            <input type="button" value="Изменить" th:onclick="'window.location.href=\'/user/' + ${user.getId()} + '\''">
-            <form th:method="DELETE" th:action="@{/{id}(id=${user.getId})}">
+            <p th:each="role :${user.roles}"  th:text="${role.getName()}"> </p>
+        </td>
+        <td>
+            <input type="button" value="Изменить" th:onclick="'window.location.href=\'/admin/user/' + ${user.id} + '\''">
+            <form th:method="DELETE" th:action="@{/admin/delete/user/{id}(id=${user.id})}">
                 <input type="submit" value="Удалить"/>
             </form>
 
@@ -26,7 +30,9 @@
     </tr>
 </table>
 <br>
-<input type="button" value="Добавить юзера" onclick="window.location.href = 'newUser'"/>
+<input type="button" value="Добавить юзера" onclick="window.location.href = '/admin/newUser'"/>
+<br>
+<input type="button" value="Logout" onclick="window.location.href = 'logout'"/>
 
 
 </body>

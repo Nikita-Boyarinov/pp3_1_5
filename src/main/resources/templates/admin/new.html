@@ -5,19 +5,34 @@
     <title>New User</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{saveUser}" th:object="${user}" th:charset="utf-8">
-  <div>
-    <p><label for="name" th:charset="utf-8">Введите имя</label>
-        <input id="name" th:field="*{name}" type="text" size="40" th:charset="utf-8"/>
-    </p>
-      <p><label for="lastName" th:charset="utf-8">Введите фамилию</label>
-          <input id="lastName" th:field="*{lastName}" type="text" size="40" th:charset="utf-8"/>
-      </p>
-      <p><label for="age">Введите возраст</label>
-          <input id="age" th:field="*{age}" type="number" size="40"/>
-      </p>
-  </div>
-  <div><input type="submit" value="Добавить"/></div>
+<form th:method="POST" th:action="@{createUser}" th:object="${user}" th:charset="utf-8">
+    <div>
+        <p><label for="name" th:charset="utf-8">Введите имя</label>
+            <input id="name" th:field="*{name}" type="text" size="40" th:charset="utf-8"/>
+        </p>
+        <p><label for="lastName" th:charset="utf-8">Введите фамилию</label>
+            <input id="lastName" th:field="*{lastName}" type="text" size="40" th:charset="utf-8"/>
+        </p>
+        <p><label for="email">Введите Email</label>
+            <input id="email" th:field="*{email}" type="text" size="40"/>
+        </p>
+        <p><label for="password">Введите пароль</label>
+            <input id="password" th:field="*{password}" type="text" size="40"/>
+        </p>
+        <p>
+            <label> Роль:
+                <input type="checkbox" name="roles"
+                       th:each="role : ${roles}"
+                       th:text="${role.getName()}"
+                       th:value="${role.getId()}"
+                       th:field="*{roles}"
+                />
+            </label>
+        </p>
+    </div>
+    <div><input type="submit" value="Добавить"/></div>
+    <br>
+    <input type="button" value="Logout" onclick="window.location.href = 'logout'"/>
 </form>
 </body>
 </html>
