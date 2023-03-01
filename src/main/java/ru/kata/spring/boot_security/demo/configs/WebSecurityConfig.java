@@ -28,10 +28,14 @@ public class WebSecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/favicon.ico").permitAll()
+                        .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
                         .successHandler(loginSuccessHandler)
                         .permitAll()
                 )

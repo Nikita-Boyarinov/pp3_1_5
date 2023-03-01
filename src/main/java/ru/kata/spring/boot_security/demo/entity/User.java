@@ -21,12 +21,15 @@ public class User implements UserDetails {
     @Column(name = "lastName")
     private String lastName;
 
+    @Column(name = "age")
+    private Integer age;
+
     @Column(name = "email", unique = true)
     private String email;
     @Column(name = "password")
     private String password;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -35,9 +38,10 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String name, String lastName, String email, String password, Collection<Role> roles) {
+    public User(String name, Integer age, String lastName, String email, String password, Collection<Role> roles) {
         this.name = name;
         this.lastName = lastName;
+        this.age = age;
         this.email = email;
         this.password = password;
         this.roles = roles;
@@ -70,6 +74,14 @@ public class User implements UserDetails {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public void setLastName(String lastName) {
@@ -127,12 +139,12 @@ public class User implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email);
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(lastName, user.lastName) && Objects.equals(age, user.age) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, lastName, email);
+        return Objects.hash(id, name, lastName, age, email, password, roles);
     }
 
     @Override
@@ -141,7 +153,10 @@ public class User implements UserDetails {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", age=" + age +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }
