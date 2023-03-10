@@ -10,6 +10,7 @@
 </head>
 
 <body class="bg-light">
+<!--navBar-->
 <nav class="navbar navbar-dark bg-dark bg-gradient g-4 sticky-top">
     <div class="container-fluid">
     <span class="navbar-brand"> <strong th:text="${currentUser.getEmail()}"></strong> with roles:
@@ -22,8 +23,9 @@
         </ul>
     </div>
 </nav>
+<!--end navBar-->
 
-
+<!--LeftPanel-->
 <div class="bg-white col-2" style="position: fixed; height:100vh;">
     <br>
     <ul class="nav flex-column nav-pills nav-fill">
@@ -36,6 +38,7 @@
         </li>
     </ul>
 </div>
+<!--end LeftPanel-->
 
 <br>
 <div class="container-fluid gx-0">
