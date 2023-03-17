@@ -1,19 +1,6 @@
 //url
 const currentUserUrl = "/api/admin/currentUser";
-const adminTableUrl = "/api/admin";
-const getRolesUrl = "api/admin/roles";
 const userUrl = "api/admin/users";
-
-//form
-const formEdit = document.forms.edit;
-const formDelete = document.forms.delete;
-const formNewUser = document.forms.newUser;
-
-
-//modal
-const modalEditBS = new bootstrap.Modal(document.getElementById('modalEdit'));
-const modalEdit = document.getElementById('modalEdit');
-const modalDeleteBS = new bootstrap.Modal(document.getElementById('modalDelete'));
 
 
 //other

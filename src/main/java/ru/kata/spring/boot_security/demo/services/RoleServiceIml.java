@@ -20,4 +20,9 @@ public class RoleServiceIml implements RoleService {
     public List<Role> getAllRoles() {
         return roleRepository.findAll();
     }
+
+    @Override
+    public Role getRole(Long id) {
+        return roleRepository.findById(id).orElseThrow();
+    }
 }
