@@ -59,13 +59,13 @@ public class RestAdminController {
 
     @PutMapping(value = "/users/{id}")
     public ResponseEntity<HttpStatus> editUser(@RequestBody User user) {
-        List<Role> rolesForUpdate = new ArrayList<>();
-        Collection<Role> rolesFromReq = user.getRoles();
-        for (Role role : rolesFromReq){
-            rolesForUpdate.add(roleService.getRole(role.getId()));
-        }
-        user.setRoles(rolesForUpdate);
-        System.out.println(user);
+//        List<Role> rolesForUpdate = new ArrayList<>();
+//        Collection<Role> rolesFromReq = user.getRoles();
+//        for (Role role : rolesFromReq){
+//            rolesForUpdate.add(roleService.getRole(role.getId()));
+//        }
+//        user.setRoles(rolesForUpdate);
+//        System.out.println(user);
         userService.updateUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
