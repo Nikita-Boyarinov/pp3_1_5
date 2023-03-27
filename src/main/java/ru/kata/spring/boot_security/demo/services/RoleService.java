@@ -7,4 +7,7 @@ import java.util.List;
 public interface RoleService {
     List<Role> getAllRoles();
     Role getRole(Long id);
+    void createRole(Role role);
+    boolean existRole (Role role);
+
 }

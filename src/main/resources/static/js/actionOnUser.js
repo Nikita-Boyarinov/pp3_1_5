@@ -2,6 +2,10 @@
 async function fillFieldsRoleForForm(form) {
     await fetch(getRolesUrl)
         .then(async rolesFromBD => {
+            let allOptions = formNewUser.elements.roles.options;
+            if (allOptions.length > 0) {
+                $('#roles2').children().remove().end()
+            }
             let rolesJSON = await rolesFromBD.json();
             form.elements.roles.setAttribute("size", Object.keys(rolesJSON).length);
             form.elements.roles.setAttribute("style", "text-transform:uppercase");
@@ -82,9 +86,13 @@ async function actionOnUser(form, modal) {
     };
     await fetch(url, options)
         .then(response => {
+            console.log(response.status);
             if (response.ok) {
+                console.log("метод POST отправлен")
                 if (form.getAttribute("method") === 'POST') {
+                    console.log("метод POST отправлен")
                     document.getElementById('btnNavUsersTable').click();
+                    console.log("кнопка таблицы со всеми юзерами нажата")
                     getMainTable();
                 } else {
                     modal.hide();
@@ -92,6 +100,6 @@ async function actionOnUser(form, modal) {
                 }
 
             }
-        }).catch(err=> alert(err));
+        })
 
 }

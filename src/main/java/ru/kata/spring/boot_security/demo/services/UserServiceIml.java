@@ -58,4 +58,9 @@ public class UserServiceIml implements UserService {
         user.setPassword(getUserById(user.getId()).getPassword());
         userRepository.save(user);
     }
+
+    @Override
+    public boolean existUser(User user) {
+        return userRepository.existsUserByName(user.getName());
+    }
 }
